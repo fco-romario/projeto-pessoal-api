@@ -22,7 +22,7 @@ public class Person implements Serializable {
     private String mathersName;
 
     @Column(nullable = false)
-    private TipoGender gender;
+    private Integer gender;
 
     @Column(length = 11, nullable = false)
     private String cpf;
@@ -49,7 +49,7 @@ public class Person implements Serializable {
         this.id = id;
         this.name = name;
         this.mathersName = mathersName;
-        this.gender = gender;
+        this.gender = gender.getCode();
         this.cpf = cpf;
         this.rg = rg;
         this.email = email;
@@ -80,11 +80,11 @@ public class Person implements Serializable {
     }
 
     public TipoGender getGender() {
-        return gender;
+        return TipoGender.toEnum(gender);
     }
 
     public void setGender(TipoGender gender) {
-        this.gender = gender;
+        this.gender = gender.getCode();
     }
 
     public String getCpf() {

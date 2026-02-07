@@ -24,10 +24,10 @@ public class Course implements Serializable {
     private String url;
 
     @Column(nullable = false)
-    private TipoCategory category;
+    private Integer category;
 
     @Column(nullable = false)
-    private TipoStatus status;
+    private Integer status;
 
     @ManyToOne()
     @JoinColumn(name = "person_fk", nullable = false)
@@ -39,8 +39,8 @@ public class Course implements Serializable {
         this.id = id;
         this.name = name;
         this.url = url;
-        this.category = category;
-        this.status = status;
+        this.category = category.getCode();
+        this.status = status.getCode();
         this.student = student;
     }
 
@@ -69,19 +69,19 @@ public class Course implements Serializable {
     }
 
     public TipoCategory getCategory() {
-        return category;
+        return TipoCategory.toEnum(category);
     }
 
     public void setCategory(TipoCategory category) {
-        this.category = category;
+        this.category = category.getCode();
     }
 
     public TipoStatus getStatus() {
-        return status;
+        return TipoStatus.toEnum(status);
     }
 
     public void setStatus(TipoStatus status) {
-        this.status = status;
+        this.status = status.getCode();
     }
 
     public Person getStudent() {
