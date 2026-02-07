@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: Projeto Pessoal
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/projeto_pessoal?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: admin123
+
+  jpa:
+    hibernate:
+      ddl-auto: update #mudar para none depois
+    show-sql: true
