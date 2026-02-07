@@ -2,7 +2,8 @@ package projeto_pessoal.enums;
 
 public enum TipoGender {
     MALE(1, "MASCULINO"),
-    FEMALE(2, "FEMININO");
+    FEMALE(2, "FEMININO"),
+    OUTROS(2, "OUTROS");
 
     private final int code;
     private final String description;
