@@ -1,5 +1,6 @@
 package projeto_pessoal.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -29,6 +30,7 @@ public class Address implements Serializable {
     @Column(length = 150, nullable = false)
     private String complemento;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "person_fk", nullable = false)
     private  Person person;

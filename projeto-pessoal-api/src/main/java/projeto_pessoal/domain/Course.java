@@ -1,5 +1,6 @@
 package projeto_pessoal.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import projeto_pessoal.enums.TipoCategory;
 import projeto_pessoal.enums.TipoStatus;
@@ -29,6 +30,7 @@ public class Course implements Serializable {
     @Column(nullable = false)
     private Integer status;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "person_fk", nullable = false)
     private Person student;
