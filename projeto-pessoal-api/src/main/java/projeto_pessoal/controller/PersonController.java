@@ -24,4 +24,11 @@ public class PersonController {
 
         return ResponseEntity.ok().body(entityList);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Person> findById(@PathVariable Integer id) {
+        Person entity = _personService.findById(id);
+        
+        return ResponseEntity.ok().body(entity);
+    }
 }
