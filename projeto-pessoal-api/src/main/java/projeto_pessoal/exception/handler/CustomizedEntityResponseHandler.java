@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import projeto_pessoal.exception.ExceptionResponse;
+import projeto_pessoal.exception.ObjectAlreadyExistsException;
 import projeto_pessoal.exception.ResourceNotFoundException;
 
 import java.util.Date;
@@ -34,5 +35,15 @@ public class CustomizedEntityResponseHandler extends ResponseEntityExceptionHand
                 request.getDescription(false)
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(ObjectAlreadyExistsException.class)
+    public final ResponseEntity<ExceptionResponse> handlerObjectAlreadyExistsException(ObjectAlreadyExistsException ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 }

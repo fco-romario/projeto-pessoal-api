@@ -30,7 +30,7 @@ public class Person implements Serializable {
     @Column(length = 11, nullable = false)
     private String rg;
 
-    @Column(length = 150, nullable = false)
+    @Column(length = 150, nullable = false, unique = true)
     private String email;
 
     @ElementCollection
@@ -125,6 +125,9 @@ public class Person implements Serializable {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+        if(addresses == null) {
+            addresses.forEach(address -> address.setPerson(this));
+        }
     }
 
     public List<Course> getCourses() {
@@ -133,6 +136,9 @@ public class Person implements Serializable {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+        if (courses == null) {
+            courses.forEach(course -> course.setStudent(this));
+        }
     }
 
     @Override

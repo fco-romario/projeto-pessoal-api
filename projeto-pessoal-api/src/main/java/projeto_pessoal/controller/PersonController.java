@@ -1,11 +1,9 @@
 package projeto_pessoal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import projeto_pessoal.domain.Person;
 import projeto_pessoal.service.PersonService;
 
@@ -30,5 +28,12 @@ public class PersonController {
         Person entity = _personService.findById(id);
         
         return ResponseEntity.ok().body(entity);
+    }
+
+    @PostMapping
+    public ResponseEntity<Person> crete(@RequestBody Person person) {
+        Person entity = _personService.create(person);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(entity);
     }
 }
