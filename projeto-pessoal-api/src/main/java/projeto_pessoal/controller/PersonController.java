@@ -31,9 +31,16 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> crete(@RequestBody Person person) {
+    public ResponseEntity<Person> create(@RequestBody Person person) {
         Person entity = _personService.create(person);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(entity);
+    }
+
+    @PutMapping
+    public ResponseEntity<Person> update(@RequestBody Person person) {
+        Person entity = _personService.update(person);
+
+        return ResponseEntity.ok(entity);
     }
 }

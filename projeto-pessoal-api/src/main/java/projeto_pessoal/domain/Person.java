@@ -125,7 +125,7 @@ public class Person implements Serializable {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
-        if(addresses == null) {
+        if(addresses != null) {
             addresses.forEach(address -> address.setPerson(this));
         }
     }
@@ -136,7 +136,7 @@ public class Person implements Serializable {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
-        if (courses == null) {
+        if (courses != null) {
             courses.forEach(course -> course.setStudent(this));
         }
     }
