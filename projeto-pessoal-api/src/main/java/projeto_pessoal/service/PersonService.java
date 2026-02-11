@@ -73,7 +73,11 @@ public class PersonService {
 
     private boolean podeSalvarOEmail(Person person) {
         Person entity = _personRepository.findByEmail(person.getEmail());
-
         return entity == null || entity.getId().equals(person.getId());
+    }
+
+    public void remove(Integer id) {
+        Person entity = findById(id);
+        _personRepository.delete(entity);
     }
 }

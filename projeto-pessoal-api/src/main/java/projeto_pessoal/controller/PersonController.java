@@ -43,4 +43,10 @@ public class PersonController {
 
         return ResponseEntity.ok(entity);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remove(@PathVariable("id") Integer id) {
+        _personService.remove(id);
+        return ResponseEntity.noContent().build();
+    }
 }
