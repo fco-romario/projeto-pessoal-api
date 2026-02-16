@@ -18,7 +18,7 @@ public class Person implements Serializable {
     @Column(length = 150, nullable = false)
     private String name;
 
-    @Column(length = 150, nullable = false)
+    @Column(name = "mathers_name", length = 150, nullable = false)
     private String mathersName;
 
     @Column(nullable = false)
