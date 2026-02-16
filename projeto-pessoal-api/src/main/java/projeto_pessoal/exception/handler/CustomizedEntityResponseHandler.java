@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import projeto_pessoal.exception.ExceptionResponse;
+import projeto_pessoal.exception.InvalidJwtAuthenticationException;
 import projeto_pessoal.exception.ObjectAlreadyExistsException;
 import projeto_pessoal.exception.ResourceNotFoundException;
 
@@ -45,5 +46,14 @@ public class CustomizedEntityResponseHandler extends ResponseEntityExceptionHand
                 request.getDescription(false)
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 }
