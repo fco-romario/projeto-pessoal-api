@@ -1,6 +1,7 @@
 package projeto_pessoal.domain;
 
 import jakarta.persistence.*;
+import projeto_pessoal.domain.security.User;
 import projeto_pessoal.enums.TipoGender;
 
 import java.io.Serializable;
@@ -42,6 +43,9 @@ public class Person extends Audit implements Serializable {
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> courses = new ArrayList<>();
+
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+    private User user;
 
     public Person() {}
 
@@ -141,15 +145,27 @@ public class Person extends Audit implements Serializable {
         }
     }
 
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getName(), person.getName()) && Objects.equals(getMathersName(), person.getMathersName()) && getGender() == person.getGender() && Objects.equals(getCpf(), person.getCpf()) && Objects.equals(getRg(), person.getRg()) && Objects.equals(getEmail(), person.getEmail());
+        return Objects.equals(getId(), person.getId()) && Objects.equals(getName(), person.getName()) && Objects.equals(getMathersName(), person.getMathersName()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getCpf(), person.getCpf()) && Objects.equals(getRg(), person.getRg()) && Objects.equals(getEmail(), person.getEmail()) && Objects.equals(getPhonesNumber(), person.getPhonesNumber()) && Objects.equals(getAddresses(), person.getAddresses()) && Objects.equals(getCourses(), person.getCourses()) && Objects.equals(getUser(), person.getUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getMathersName(), getGender(), getCpf(), getRg(), getEmail());
+        return Objects.hash(getId(), getName(), getMathersName(), getGender(), getCpf(), getRg(), getEmail(), getPhonesNumber(), getAddresses(), getCourses(), getUser());
     }
 }
