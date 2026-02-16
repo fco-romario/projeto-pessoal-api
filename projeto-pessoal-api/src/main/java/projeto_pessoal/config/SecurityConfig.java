@@ -1,0 +1,38 @@
+package projeto_pessoal.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import projeto_pessoal.security.jwt.JwtTokenProvider;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@EnableWebSecurity
+@Configuration
+public class SecurityConfig {
+
+    private final JwtTokenProvider _tokenProvider;//todo verificar se realmente precisa
+
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+        this._tokenProvider = jwtTokenProvider;
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+
+        PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder(
+                "", 8, 185000,
+                Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
+
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
+        encoders.put("pbkdf2", pbkdf2Encoder);
+        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
+
+        passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2Encoder);
+        return passwordEncoder;
+    }
+}

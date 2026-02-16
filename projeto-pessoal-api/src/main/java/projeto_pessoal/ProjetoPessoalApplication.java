@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import projeto_pessoal.domain.Address;
 import projeto_pessoal.domain.Course;
 import projeto_pessoal.domain.Person;
@@ -15,6 +18,8 @@ import projeto_pessoal.repository.CourseRepository;
 import projeto_pessoal.repository.PersonRepository;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 public class ProjetoPessoalApplication implements CommandLineRunner {
@@ -28,6 +33,7 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoPessoalApplication.class, args);
+        generateHashedPassword();
 	}
 
     @Override
@@ -47,5 +53,23 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
         _personRepository.save(person);
         _addressRepository.saveAll(Arrays.asList(a1, a2));
         _courseRepository.saveAll(Arrays.asList(c1, c2));
+    }
+
+    private static void generateHashedPassword() {
+
+        PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder(
+                "", 8, 185000,
+                Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
+
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
+        encoders.put("pbkdf2", pbkdf2Encoder);
+        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
+
+        passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2Encoder);
+        var pass1 = passwordEncoder.encode("admin123");
+        var pass2 = passwordEncoder.encode("admin234");
+
+        System.out.println(pass1);
+        System.out.println(pass2);
     }
 }
