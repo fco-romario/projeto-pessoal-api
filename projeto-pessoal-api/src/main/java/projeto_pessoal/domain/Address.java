@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "addresses")
-public class Address implements Serializable {
+public class Address extends Audit implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

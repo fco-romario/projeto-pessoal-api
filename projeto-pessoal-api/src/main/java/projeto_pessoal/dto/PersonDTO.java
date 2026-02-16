@@ -1,11 +1,10 @@
 package projeto_pessoal.dto;
 
 import jakarta.persistence.*;
-import projeto_pessoal.domain.Address;
-import projeto_pessoal.domain.Course;
 import projeto_pessoal.enums.TipoGender;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class PersonDTO implements Serializable {
@@ -21,7 +20,9 @@ public class PersonDTO implements Serializable {
     private Set<String> phonesNumber = new HashSet<>();
     private List<AddressDTO> addresses = new ArrayList<>();
     private List<CourseDTO> courses = new ArrayList<>();
-
+    private LocalDateTime createdAt;
+    private String createdBy;
+    private LocalDateTime updatedAt;
     public PersonDTO() {}
 
     public PersonDTO(Integer id, String name, String mathersName, TipoGender gender, String cpf, String rg, String email) {
@@ -118,6 +119,34 @@ public class PersonDTO implements Serializable {
         if (courses != null) {
             courses.forEach(course -> course.setStudent(this));
         }
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
