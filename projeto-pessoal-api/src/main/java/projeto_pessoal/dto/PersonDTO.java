@@ -1,51 +1,30 @@
-package projeto_pessoal.domain;
+package projeto_pessoal.dto;
 
 import jakarta.persistence.*;
+import projeto_pessoal.domain.Address;
+import projeto_pessoal.domain.Course;
 import projeto_pessoal.enums.TipoGender;
 
 import java.io.Serializable;
 import java.util.*;
 
-@Entity
-@Table(name = "pessoas")
-public class Person implements Serializable {
+public class PersonDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(length = 150, nullable = false)
     private String name;
-
-    @Column(length = 150, nullable = false)
     private String mathersName;
-
-    @Column(nullable = false)
     private Integer gender;
-
-    @Column(length = 11, nullable = false)
     private String cpf;
-
-    @Column(length = 11, nullable = false)
     private String rg;
-
-    @Column(length = 150, nullable = false, unique = true)
     private String email;
-
-    @ElementCollection
-    @CollectionTable(name = "phones_numbers")
     private Set<String> phonesNumber = new HashSet<>();
+    private List<AddressDTO> addresses = new ArrayList<>();
+    private List<CourseDTO> courses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses = new ArrayList<>();
+    public PersonDTO() {}
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Course> courses = new ArrayList<>();
-
-    public Person() {}
-
-    public Person(Integer id, String name, String mathersName, TipoGender gender, String cpf, String rg, String email) {
+    public PersonDTO(Integer id, String name, String mathersName, TipoGender gender, String cpf, String rg, String email) {
         this.id = id;
         this.name = name;
         this.mathersName = mathersName;
@@ -119,22 +98,22 @@ public class Person implements Serializable {
         this.phonesNumber = phonesNumber;
     }
 
-    public List<Address> getAddresses() {
+    public List<AddressDTO> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Address> addresses) {
+    public void setAddresses(List<AddressDTO> addresses) {
         this.addresses = addresses;
         if(addresses != null) {
             addresses.forEach(address -> address.setPerson(this));
         }
     }
 
-    public List<Course> getCourses() {
+    public List<CourseDTO> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Course> courses) {
+    public void setCourses(List<CourseDTO> courses) {
         this.courses = courses;
         if (courses != null) {
             courses.forEach(course -> course.setStudent(this));
@@ -144,8 +123,8 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getName(), person.getName()) && Objects.equals(getMathersName(), person.getMathersName()) && getGender() == person.getGender() && Objects.equals(getCpf(), person.getCpf()) && Objects.equals(getRg(), person.getRg()) && Objects.equals(getEmail(), person.getEmail());
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(getId(), personDTO.getId()) && Objects.equals(getName(), personDTO.getName()) && Objects.equals(getMathersName(), personDTO.getMathersName()) && getGender() == personDTO.getGender() && Objects.equals(getCpf(), personDTO.getCpf()) && Objects.equals(getRg(), personDTO.getRg()) && Objects.equals(getEmail(), personDTO.getEmail());
     }
 
     @Override

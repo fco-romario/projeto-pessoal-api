@@ -1,40 +1,29 @@
-package projeto_pessoal.domain;
+package projeto_pessoal.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import projeto_pessoal.domain.Person;
 import projeto_pessoal.enums.TipoCategory;
 import projeto_pessoal.enums.TipoStatus;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "courses")
-public class Course implements Serializable {
+public class CourseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(length = 100, nullable = false)
     private String name;
-
-    @Column(length = 200, nullable = false)
     private String url;
-
-    @Column(nullable = false)
     private Integer category;
-
-    @Column(nullable = false)
     private Integer status;
 
-    @ManyToOne()
-    @JoinColumn(name = "person_fk")
-    private Person student;
+    @JsonIgnore
+    private PersonDTO student;
 
-    public Course() {}
+    public CourseDTO() {}
 
-    public Course(Integer id, String name, String url, TipoCategory category, TipoStatus status, Person student) {
+    public CourseDTO(Integer id, String name, String url, TipoCategory category, TipoStatus status, PersonDTO student) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -83,18 +72,18 @@ public class Course implements Serializable {
         this.status = status.getCode();
     }
 
-    public Person getStudent() {
+    public PersonDTO getStudent() {
         return student;
     }
 
-    public void setStudent(Person student) {
+    public void setStudent(PersonDTO student) {
         this.student = student;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
+        CourseDTO course = (CourseDTO) o;
         return Objects.equals(getId(), course.getId()) && Objects.equals(getName(), course.getName()) && Objects.equals(getUrl(), course.getUrl()) && getCategory() == course.getCategory() && getStatus() == course.getStatus() && Objects.equals(getStudent(), course.getStudent());
     }
 

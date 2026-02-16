@@ -1,42 +1,28 @@
-package projeto_pessoal.domain;
+package projeto_pessoal.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import projeto_pessoal.domain.Person;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "addresses")
-public class Address implements Serializable {
+public class AddressDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(length = 8, nullable = false)
     private String cep;
-
-    @Column(length = 150, nullable = false)
     private String logradouro;
-
-    @Column(length = 150, nullable = false)
     private String bairro;
-
-    @Column(length = 30, nullable = false)
     private String numero;
-
-    @Column(length = 150, nullable = false)
     private String complemento;
 
-    @ManyToOne()
-    @JoinColumn(name = "person_fk")
-    private  Person person;
+    @JsonIgnore
+    private PersonDTO person;
 
-    public Address() {}
+    public AddressDTO() {}
 
-    public Address(Integer id, String cep, String logradouro, String bairro, String numero, String complemento, Person person) {
+    public AddressDTO(Integer id, String cep, String logradouro, String bairro, String numero, String complemento, PersonDTO person) {
         this.id = id;
         this.cep = cep;
         this.logradouro = logradouro;
@@ -94,18 +80,18 @@ public class Address implements Serializable {
         this.complemento = complemento;
     }
 
-    public Person getPerson() {
+    public PersonDTO getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
+    public void setPerson(PersonDTO person) {
         this.person = person;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
+        AddressDTO address = (AddressDTO) o;
         return Objects.equals(getId(), address.getId()) && Objects.equals(getCep(), address.getCep()) && Objects.equals(getLogradouro(), address.getLogradouro()) && Objects.equals(getBairro(), address.getBairro()) && Objects.equals(getNumero(), address.getNumero()) && Objects.equals(getComplemento(), address.getComplemento()) && Objects.equals(getPerson(), address.getPerson());
     }
 
