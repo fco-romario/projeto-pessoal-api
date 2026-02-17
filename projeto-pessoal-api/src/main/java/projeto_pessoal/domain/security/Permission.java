@@ -17,6 +17,13 @@ public class Permission implements GrantedAuthority {
     @Column(length = 20)
     private String description;
 
+    public Permission() {}
+
+    public Permission(Long id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     @Override
     public String getAuthority() {
         return this.description;

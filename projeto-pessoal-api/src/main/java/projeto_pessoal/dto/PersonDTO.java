@@ -20,9 +20,9 @@ public class PersonDTO implements Serializable {
     private Set<String> phonesNumber = new HashSet<>();
     private List<AddressDTO> addresses = new ArrayList<>();
     private List<CourseDTO> courses = new ArrayList<>();
-    private LocalDateTime createdAt;
-    private String createdBy;
-    private LocalDateTime updatedAt;
+//    private LocalDateTime createdAt;
+//    private String createdBy;
+//    private LocalDateTime updatedAt;
     public PersonDTO() {}
 
     public PersonDTO(Integer id, String name, String mathersName, TipoGender gender, String cpf, String rg, String email) {
@@ -125,29 +125,29 @@ public class PersonDTO implements Serializable {
         this.gender = gender;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+//    public LocalDateTime getCreatedAt() {
+//        return createdAt;
+//    }
+//
+//    public void setCreatedAt(LocalDateTime createdAt) {
+//        this.createdAt = createdAt;
+//    }
+//
+//    public String getCreatedBy() {
+//        return createdBy;
+//    }
+//
+//    public void setCreatedBy(String createdBy) {
+//        this.createdBy = createdBy;
+//    }
+//
+//    public LocalDateTime getUpdatedAt() {
+//        return updatedAt;
+//    }
+//
+//    public void setUpdatedAt(LocalDateTime updatedAt) {
+//        this.updatedAt = updatedAt;
+//    }
 
     @Override
     public boolean equals(Object o) {

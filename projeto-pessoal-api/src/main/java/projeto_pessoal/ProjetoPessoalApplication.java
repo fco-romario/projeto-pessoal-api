@@ -10,12 +10,16 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import projeto_pessoal.domain.Address;
 import projeto_pessoal.domain.Course;
 import projeto_pessoal.domain.Person;
+import projeto_pessoal.domain.security.Permission;
+import projeto_pessoal.domain.security.User;
 import projeto_pessoal.enums.TipoCategory;
 import projeto_pessoal.enums.TipoGender;
 import projeto_pessoal.enums.TipoStatus;
 import projeto_pessoal.repository.AddressRepository;
 import projeto_pessoal.repository.CourseRepository;
 import projeto_pessoal.repository.PersonRepository;
+import projeto_pessoal.repository.security.PermissionRepository;
+import projeto_pessoal.repository.security.UserRepository;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,10 +34,14 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
     private AddressRepository _addressRepository;
     @Autowired
     private CourseRepository _courseRepository;
+    @Autowired
+    private UserRepository _userRepository;
+    @Autowired
+    private PermissionRepository _permissionRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoPessoalApplication.class, args);
-        generateHashedPassword();
+        //generateHashedPassword();
 	}
 
     @Override
@@ -50,12 +58,24 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
 
         person.getCourses().addAll(Arrays.asList(c1, c2));
 
+        User u = new User(null, "rom", generateHashedPassword("admin123"), true, true, true, true, person);
+
+        person.setUser(u);
+
+        Permission p1 = new Permission(null, "ADMIN");
+        Permission p2 = new Permission(null, "MANAGER");
+        Permission p3 = new Permission(null, "COMMON_USER");
+
+        u.getPermissions().add(p1);
+
+        _permissionRepository.saveAll(Arrays.asList(p1, p2, p3));
         _personRepository.save(person);
+        _userRepository.save(u);
         _addressRepository.saveAll(Arrays.asList(a1, a2));
         _courseRepository.saveAll(Arrays.asList(c1, c2));
     }
 
-    private static void generateHashedPassword() {
+    private static String generateHashedPassword(String password) {
 
         PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder(
                 "", 8, 185000,
@@ -71,5 +91,6 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
 
         System.out.println(pass1);
         System.out.println(pass2);
+        return passwordEncoder.encode(password);
     }
 }

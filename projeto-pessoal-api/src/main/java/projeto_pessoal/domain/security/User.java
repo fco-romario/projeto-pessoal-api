@@ -46,7 +46,7 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "id_user")},
             inverseJoinColumns = {@JoinColumn(name = "id_permission")}
     )
-    List<Permission> permissions;
+    List<Permission> permissions = new ArrayList<>();
 
     public User() {
     }
