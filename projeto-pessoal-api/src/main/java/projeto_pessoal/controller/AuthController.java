@@ -15,15 +15,20 @@ import projeto_pessoal.service.security.AuthService;
 public class AuthController {
 
     @Autowired
-    private AuthService service;
+    private AuthService _service;
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@Valid @RequestBody AccountCredentialsDTO credentials) {
         try {
-            var token = service.signIn(credentials);
+            var token = _service.signIn(credentials);
             return ResponseEntity.ok(token);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @PostMapping("/createUser")
+    public AccountCredentialsDTO create(@RequestBody AccountCredentialsDTO credentials) {
+        return _service.create(credentials);
     }
 }
