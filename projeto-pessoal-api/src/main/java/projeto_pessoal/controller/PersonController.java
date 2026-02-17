@@ -10,7 +10,7 @@ import projeto_pessoal.service.PersonService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/persons")
+@RequestMapping(value = "/api/v1/persons")
 public class PersonController {
 
     @Autowired

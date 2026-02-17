@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import projeto_pessoal.domain.security.User;
 import projeto_pessoal.dto.security.AccountCredentialsDTO;
 import projeto_pessoal.dto.security.TokenDTO;
+import projeto_pessoal.exception.ObjectAlreadyExistsException;
 import projeto_pessoal.exception.RequiredObjectIsNullException;
 import projeto_pessoal.repository.security.UserRepository;
 import projeto_pessoal.security.jwt.JwtTokenProvider;
@@ -57,6 +58,10 @@ public class AuthService {
 
     public AccountCredentialsDTO create(AccountCredentialsDTO user) {
         if(user == null) throw new RequiredObjectIsNullException();
+
+        if (repository.findByUsername(user.getUsername()).isPresent())
+            throw new ObjectAlreadyExistsException("User already exists!");
+
 
         logger.info("Creating a new User");
         var entity = new User();
