@@ -23,7 +23,8 @@ public class AuthService {
     @Autowired
     private UserRepository repository;
 
-    public ResponseEntity<TokenDTO> singIn(AccountCredentialsDTO credentials) {
+    public TokenDTO signIn(AccountCredentialsDTO credentials) {
+        // 1. O "Segurança" checa a senha. Se estiver errada, para aqui.
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         credentials.getUsername(),
@@ -31,14 +32,15 @@ public class AuthService {
                 )
         );
 
-        var user =  repository.findByUsername(credentials.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("Username " + credentials.getUsername() + " not found!"));
+        // 2. Busca os dados para o Token (Roles, etc)
+        var user = repository.findByUsername(credentials.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
 
-        var tokenDTO = tokenProvider.createAcessToken(
+        // 3. Gera o token e retorna o objeto puro
+        return tokenProvider.createAcessToken(
                 credentials.getUsername(),
                 user.getRoles()
         );
-        return ResponseEntity.ok(tokenDTO);
     }
 
 
