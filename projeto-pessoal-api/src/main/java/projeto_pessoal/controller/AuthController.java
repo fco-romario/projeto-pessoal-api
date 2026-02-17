@@ -1,7 +1,7 @@
 package projeto_pessoal.controller;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,4 +31,18 @@ public class AuthController {
     public AccountCredentialsDTO create(@RequestBody AccountCredentialsDTO credentials) {
         return _service.create(credentials);
     }
+
+    @PutMapping("/refresh/{username}")
+    public ResponseEntity<?> refreshToken(
+            @PathVariable("username") @NotBlank(message = "Username is required") String username,
+            @RequestHeader("Authorization") @NotBlank(message = "Refresh Token is required") String refreshToken) {
+        try {
+            var token = _service.refreshToken(username, refreshToken);
+            return ResponseEntity.ok(token);
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
 }
+
+

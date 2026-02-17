@@ -49,7 +49,7 @@ public class AuthService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
 
         // 3. Gera o token e retorna o objeto puro
-        return tokenProvider.createAcessToken(
+        return tokenProvider.createAccessToken(
                 credentials.getUsername(),
                 user.getRoles()
         );
@@ -84,5 +84,16 @@ public class AuthService {
 
         passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2Encoder);
         return passwordEncoder.encode(password);
+    }
+
+    public TokenDTO refreshToken(String username, String refreshToken) {
+        var user =  repository.findByUsername(username);
+        TokenDTO tokenDTO;
+        if(user != null) {
+            tokenDTO = tokenProvider.refreshToken(refreshToken);
+        } else {
+            throw new UsernameNotFoundException("Username "+ username + " not found!");
+        }
+        return tokenDTO;
     }
 }
