@@ -1,5 +1,7 @@
 package projeto_pessoal.dto.security;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -7,7 +9,10 @@ public class AccountCredentialsDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotBlank(message = "Username is required")
     private String username;
+
+    @NotBlank(message = "Username is required")
     private String password;
 
     public AccountCredentialsDTO() {}
