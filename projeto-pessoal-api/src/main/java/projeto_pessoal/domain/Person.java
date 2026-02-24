@@ -1,6 +1,8 @@
 package projeto_pessoal.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import projeto_pessoal.domain.security.User;
 import projeto_pessoal.enums.TipoGender;
 
@@ -16,34 +18,48 @@ public class Person extends Audit implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "O nome é obrigatório")
+    @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     @Column(length = 150, nullable = false)
     private String name;
 
+    @NotBlank(message = "O nome da mãe é obrigatório")
     @Column(name = "mathers_name", length = 150, nullable = false)
     private String mathersName;
 
+    @NotNull(message = "O gênero deve ser informado")
     @Column(nullable = false)
     private Integer gender;
 
+    @NotBlank(message = "O CPF é obrigatório")
+    @Pattern(regexp = "\\d{11}",
+            message = "O CPF deve conter exatamente 11 números, sem pontos ou hifens")
     @Column(length = 11, nullable = false)
     private String cpf;
 
+    @NotBlank(message = "O RG é obrigatório")
     @Column(length = 11, nullable = false)
     private String rg;
 
+    @NotBlank(message = "O e-mail é obrigatório")
+    @Email(message = "E-mail inválido")
     @Column(length = 150, nullable = false, unique = true)
     private String email;
 
+    @NotEmpty(message = "Pelo menos um número de telefone deve ser informado")
     @ElementCollection
     @CollectionTable(name = "phones_numbers")
     private Set<String> phonesNumber = new HashSet<>();
 
+    @Valid
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
+    @Valid
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Course> courses = new ArrayList<>();
 
+    //@NotNull(message = "O usuário é obrigatório")
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private User user;
 
@@ -57,6 +73,7 @@ public class Person extends Audit implements Serializable {
         this.cpf = cpf;
         this.rg = rg;
         this.email = email;
+        //todo adicionar user
     }
 
     public Integer getId() {

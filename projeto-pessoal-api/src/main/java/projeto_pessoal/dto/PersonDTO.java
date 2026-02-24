@@ -1,6 +1,8 @@
 package projeto_pessoal.dto;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import projeto_pessoal.enums.TipoGender;
 
 import java.io.Serializable;
@@ -11,18 +13,45 @@ public class PersonDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+
+    @NotBlank(message = "O nome é obrigatório")
+    @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     private String name;
+
+    @NotBlank(message = "O nome da mãe é obrigatório")
     private String mathersName;
+
+    @NotNull(message = "O gênero deve ser informado")
+    // Se você seguiu minha dica do post anterior, aqui pode ser o Enum TipoGender
     private Integer gender;
+
+    @NotBlank(message = "O CPF é obrigatório")
+    @Pattern(regexp = "\\d{11}",
+            message = "O CPF deve conter exatamente 11 números, sem pontos ou hifens")
     private String cpf;
+
+    @NotBlank(message = "O RG é obrigatório")
     private String rg;
+
+    @NotBlank(message = "O e-mail é obrigatório")
+    @Email(message = "E-mail inválido")
     private String email;
+
+    @NotEmpty(message = "Pelo menos um número de telefone deve ser informado")
     private Set<String> phonesNumber = new HashSet<>();
+
+    @Valid // Valida cada endereço dentro da lista
     private List<AddressDTO> addresses = new ArrayList<>();
+
+    @Valid // Valida cada curso dentro da lista
     private List<CourseDTO> courses = new ArrayList<>();
+
+//    @NotEmpty(message = "É necessário um suário")
+//    private User user;
 //    private LocalDateTime createdAt;
 //    private String createdBy;
 //    private LocalDateTime updatedAt;
+
     public PersonDTO() {}
 
     public PersonDTO(Integer id, String name, String mathersName, TipoGender gender, String cpf, String rg, String email) {
@@ -33,6 +62,7 @@ public class PersonDTO implements Serializable {
         this.cpf = cpf;
         this.rg = rg;
         this.email = email;
+        //todo adicionar user
     }
 
     public Integer getId() {

@@ -1,6 +1,7 @@
 package projeto_pessoal.domain.security;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import projeto_pessoal.domain.Person;
@@ -19,9 +20,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Username is required")
     @Column(name = "user_name", unique = true)
     private String username;
 
+    @NotBlank(message = "password is required")
     @Column
     private String password;
 

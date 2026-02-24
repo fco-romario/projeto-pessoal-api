@@ -2,6 +2,7 @@ package projeto_pessoal.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import projeto_pessoal.domain.Person;
 import projeto_pessoal.enums.TipoCategory;
 import projeto_pessoal.enums.TipoStatus;
@@ -13,9 +14,21 @@ public class CourseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+
+    @NotBlank(message = "O nome do curso é obrigatório")
+    @Size(min = 5, max = 150, message = "O nome do curso deve ter entre 5 e 150 caracteres")
     private String name;
+
+    @NotBlank(message = "A URL é obrigatória")
+    @org.hibernate.validator.constraints.URL(message = "URL inválida")
     private String url;
+
+    @NotNull(message = "A categoria é obrigatória")
+    //todo criar validator personalizado
     private Integer category;
+
+    @NotNull(message = "O status é obrigatório")// Exemplo: 1-ANDAMENTO, 2-CONCLUÍDO
+    //todo criar validator personalizado
     private Integer status;
 
     @JsonIgnore

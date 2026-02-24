@@ -1,6 +1,9 @@
 package projeto_pessoal.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import projeto_pessoal.enums.TipoCategory;
 import projeto_pessoal.enums.TipoStatus;
 
@@ -16,15 +19,23 @@ public class Course extends Audit implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "O nome do curso é obrigatório")
+    @Size(min = 5, max = 150, message = "O nome do curso deve ter entre 5 e 150 caracteres")
     @Column(length = 100, nullable = false)
     private String name;
 
+    @NotBlank(message = "A URL é obrigatória")
+    @org.hibernate.validator.constraints.URL(message = "URL inválida")
     @Column(length = 200, nullable = false)
     private String url;
 
+    @NotNull(message = "A categoria é obrigatória")
+    //todo criar validator personalizado
     @Column(nullable = false)
     private Integer category;
 
+    @NotNull(message = "O status é obrigatório")// Exemplo: 1-ANDAMENTO, 2-CONCLUÍDO
+    //todo criar validator personalizado
     @Column(nullable = false)
     private Integer status;
 

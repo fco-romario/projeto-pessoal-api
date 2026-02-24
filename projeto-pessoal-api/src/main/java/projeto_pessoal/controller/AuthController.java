@@ -28,7 +28,7 @@ public class AuthController {
     }
 
     @PostMapping("/createUser")
-    public AccountCredentialsDTO create(@RequestBody AccountCredentialsDTO credentials) {
+    public AccountCredentialsDTO create(@Valid @RequestBody AccountCredentialsDTO credentials) {
         return _service.create(credentials);
     }
 

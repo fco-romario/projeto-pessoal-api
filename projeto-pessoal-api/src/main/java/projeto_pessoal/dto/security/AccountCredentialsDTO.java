@@ -12,7 +12,7 @@ public class AccountCredentialsDTO implements Serializable {
     @NotBlank(message = "Username is required")
     private String username;
 
-    @NotBlank(message = "Username is required")
+    @NotBlank(message = "password is required")
     private String password;
 
     public AccountCredentialsDTO() {}
