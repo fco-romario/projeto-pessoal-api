@@ -23,22 +23,22 @@ public class Person extends Audit implements Serializable {
     @Column(length = 150, nullable = false)
     private String name;
 
-    @NotBlank(message = "O nome da mãe é obrigatório")
-    @Column(name = "mathers_name", length = 150, nullable = false)
+    //@NotBlank(message = "O nome da mãe é obrigatório")
+    @Column(name = "mathers_name", length = 150, nullable = true)
     private String mathersName;
 
-    @NotNull(message = "O gênero deve ser informado")
-    @Column(nullable = false)
+    //@NotNull(message = "O gênero deve ser informado")
+    @Column(nullable = true)
     private Integer gender;
 
-    @NotBlank(message = "O CPF é obrigatório")
-    @Pattern(regexp = "\\d{11}",
-            message = "O CPF deve conter exatamente 11 números, sem pontos ou hifens")
-    @Column(length = 11, nullable = false)
+    //@NotBlank(message = "O CPF é obrigatório")
+    //@Pattern(regexp = "\\d{11}",
+    //        message = "O CPF deve conter exatamente 11 números, sem pontos ou hifens")
+    @Column(length = 11, nullable = true)
     private String cpf;
 
-    @NotBlank(message = "O RG é obrigatório")
-    @Column(length = 11, nullable = false)
+    //@NotBlank(message = "O RG é obrigatório")
+    @Column(length = 11, nullable = true)
     private String rg;
 
     @NotBlank(message = "O e-mail é obrigatório")
@@ -46,7 +46,7 @@ public class Person extends Audit implements Serializable {
     @Column(length = 150, nullable = false, unique = true)
     private String email;
 
-    @NotEmpty(message = "Pelo menos um número de telefone deve ser informado")
+    //@NotEmpty(message = "Pelo menos um número de telefone deve ser informado")
     @ElementCollection
     @CollectionTable(name = "phones_numbers")
     private Set<String> phonesNumber = new HashSet<>();

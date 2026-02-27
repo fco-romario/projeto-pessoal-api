@@ -1,6 +1,7 @@
 package projeto_pessoal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -76,9 +77,9 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
     }
 
     private static String generateHashedPassword(String password) {
-
+        String passwordSecret = "53cr372";//nao colocar a secret como Hard code, mas sim como variável de ambiente.
         PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder(
-                "", 8, 185000,
+                passwordSecret, 8, 185000,
                 Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
 
         Map<String, PasswordEncoder> encoders = new HashMap<>();

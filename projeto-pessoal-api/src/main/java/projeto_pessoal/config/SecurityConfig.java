@@ -1,5 +1,6 @@
 package projeto_pessoal.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,9 @@ import java.util.Map;
 @Configuration
 public class SecurityConfig {
 
+    @Value("${security.jwt.token.secret-password:defaultPasswordSecret}")
+    private String passwordSecret;//todo tentar mudar a secret do password e do token pra ver se todos deslogam e a senha continua ok
+
     private final JwtTokenProvider _tokenProvider;
 
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -33,7 +37,7 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder(){
 
         PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder(
-                "", 8, 185000,
+                passwordSecret, 8, 185000,
                 Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
 
         Map<String, PasswordEncoder> encoders = new HashMap<>();

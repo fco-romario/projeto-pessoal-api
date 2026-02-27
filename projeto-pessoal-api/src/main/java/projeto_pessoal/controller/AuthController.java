@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import projeto_pessoal.dto.security.AccountCredentialsDTO;
+import projeto_pessoal.dto.security.RegisterDTO;
 import projeto_pessoal.service.security.AuthService;
 
 @RestController
@@ -28,8 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/createUser")
-    public AccountCredentialsDTO create(@Valid @RequestBody AccountCredentialsDTO credentials) {
-        return _service.create(credentials);
+    public AccountCredentialsDTO create(@Valid @RequestBody RegisterDTO registerDTO) {
+        return _service.create(registerDTO);
     }
 
     @PutMapping("/refresh/{username}")
