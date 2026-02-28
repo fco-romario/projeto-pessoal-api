@@ -17,27 +17,35 @@ import java.time.LocalDateTime;
 public abstract class Audit implements Serializable {
     private static final long serialVersionUID = 1L;
 
+//    @CreatedBy
+//    @Column(name = "created_by", updatable = false)
+//    private String createdBy;
+
     @CreatedBy
     @Column(name = "created_by", updatable = false)
-    private String createdBy;
+    private Long createdBy;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
+//    @LastModifiedBy
+//    @Column(name = "updated_by")
+//    private String updatedBy;
+
     @LastModifiedBy
     @Column(name = "updated_by")
-    private String updatedBy;
+    private Long updatedBy;
 
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -49,11 +57,11 @@ public abstract class Audit implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedBy() {
+    public Long getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(String updatedBy) {
+    public void setUpdatedBy(Long updatedBy) {
         this.updatedBy = updatedBy;
     }
 
