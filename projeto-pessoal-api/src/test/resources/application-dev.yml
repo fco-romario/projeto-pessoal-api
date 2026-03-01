@@ -1,0 +1,21 @@
+cors:
+  originPatterns: http://localhost:8080,http://dev-origem.exemplo.com
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL_DEV}
+    username: ${DB_USER_DEV}
+    password: ${DB_PASSWORD_DEV}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop #Deleta e recria as tabelas e deleta os dados do banco quando finaliza a app
+#    properties:
+#      hibernate:
+#        format_sql: true # Deixa o SQL bonito e identado no console
+#        highlight_sql: true # Dá cor ao SQL (se o seu terminal suportar)
+
+logging:
+  level:
+    root: INFO
+
+

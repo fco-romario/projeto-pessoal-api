@@ -151,6 +151,10 @@ public class PersonDTO implements Serializable {
         }
     }
 
+//    public void setGender(Integer gender) {
+//        this.gender = gender;
+//    }
+
 //    public LocalDateTime getCreatedAt() {
 //        return createdAt;
 //    }

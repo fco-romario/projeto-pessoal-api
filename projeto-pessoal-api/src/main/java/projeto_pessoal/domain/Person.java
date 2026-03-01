@@ -162,9 +162,9 @@ public class Person extends Audit implements Serializable {
         }
     }
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
+//    public void setGender(Integer gender) {
+//        this.gender = gender;
+//    }
 
     public User getUser() {
         return user;
