@@ -46,15 +46,15 @@ public class CustomizedEntityResponseHandler extends ResponseEntityExceptionHand
     }
 
     // Tratamento para Erros Genéricos (500)
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
-        ExceptionResponse response = new ExceptionResponse(
-                new Date(),
-                "Ocorreu um erro interno no servidor.",
-                request.getDescription(false)
-        );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
+//        ExceptionResponse response = new ExceptionResponse(
+//                new Date(),
+//                "Ocorreu um erro interno no servidor.",
+//                request.getDescription(false)
+//        );
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+//    }
 
     // Tratamento específico para Recurso Não Encontrado (404)
     @ExceptionHandler(ResourceNotFoundException.class)

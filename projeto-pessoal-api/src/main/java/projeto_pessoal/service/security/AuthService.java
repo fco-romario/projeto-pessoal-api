@@ -1,6 +1,7 @@
 package projeto_pessoal.service.security;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import projeto_pessoal.domain.Person;
 import projeto_pessoal.domain.security.Permission;
 import projeto_pessoal.domain.security.User;
@@ -21,7 +23,7 @@ import projeto_pessoal.repository.PersonRepository;
 import projeto_pessoal.repository.security.UserRepository;
 import projeto_pessoal.security.jwt.JwtTokenProvider;
 
-
+@Validated
 @Service
 public class AuthService {
 
@@ -130,10 +132,15 @@ public class AuthService {
 //        return passwordEncoder.encode(password);
 //    }
 
-    public TokenDTO refreshToken(String username, String refreshToken) {
+    public TokenDTO refreshToken(
+            @NotBlank(message = "Username is required") String username,
+            @NotBlank(message = "refreshToken is required") String refreshToken
+    ) {
         var user =  repository.findByUsername(username);
+        //Avaliae se basta somente o refreshToken para fazer esse processo de refrescar.
+
         TokenDTO tokenDTO;
-        if(user != null) {
+        if(user.isPresent()) {
             tokenDTO = tokenProvider.refreshToken(refreshToken);
         } else {
             throw new UsernameNotFoundException("Username "+ username + " not found!");
