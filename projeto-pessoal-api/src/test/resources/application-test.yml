@@ -1,0 +1,35 @@
+cors:
+  originPatterns: http://localhost:8080,http://dev-origem.exemplo.com
+server:
+  port: 8888
+security:
+  jwt:
+    token:
+      issuer: projeto-pessoal-api
+      secret-key: 123
+      secret-password: 1234
+      expire-lenght: 3600000
+spring:
+  application:
+    name: Projeto Pessoal
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL_DEV}
+    username: ${DB_USER_DEV}
+    password: ${DB_PASSWORD_DEV}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+#  profiles:
+#    active: dev
+spring-doc:
+  paths-to-match:
+    - /auth/**
+    - /api/**/v1/**
+  swagger-ui:
+    use-root-path: true
+
+logging:
+  level:
+    root: OFF
+
