@@ -47,7 +47,7 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Person person = new Person(null, "Romário Alves de Lima", "Maria alves", TipoGender.MALE, "11122233344", "99988877744", "test@gmail.com");
+        /*Person person = new Person(null, "Romário Alves de Lima", "Maria alves", TipoGender.MALE, "11122233344", "99988877744", "test@gmail.com");
         person.getPhonesNumber().addAll(Arrays.asList("85900001111", "85900002222"));
 
         Address a1 = new Address(null, "41180083", "Rua da Lagoa", "Saboeiro", "15b", "Proximo a farmácia", person);
@@ -73,9 +73,9 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
         _personRepository.save(person);
         _userRepository.save(u);
         _addressRepository.saveAll(Arrays.asList(a1, a2));
-        _courseRepository.saveAll(Arrays.asList(c1, c2));
+        _courseRepository.saveAll(Arrays.asList(c1, c2));*/
     }
-
+    /*
     private static String generateHashedPassword(String password) {
         String passwordSecret = "53cr372";//nao colocar a secret como Hard code, mas sim como variável de ambiente.
         PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder(
@@ -94,4 +94,6 @@ public class ProjetoPessoalApplication implements CommandLineRunner {
         System.out.println(pass2);
         return passwordEncoder.encode(password);
     }
+    */
+
 }

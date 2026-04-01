@@ -6,20 +6,21 @@ security:
   jwt:
     token:
       issuer: projeto-pessoal-api
-      secret-key: 123
-      secret-password: 1234
+      secret-key: ${SECRET_KEY}
+      secret-password: ${SECRET_PASSWORD}
       expire-lenght: 3600000
 spring:
   application:
     name: Projeto Pessoal
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL_DEV}
-    username: ${DB_USER_DEV}
-    password: ${DB_PASSWORD_DEV}
+#    url: ${DB_URL_DEV}
+#    username: ${DB_USER_DEV}
+#    password: ${DB_PASSWORD_DEV} essas partee sera criada dinamicamente na classe de configuração do teste container
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
+      open-in-view: false
 #  profiles:
 #    active: dev
 spring-doc:
@@ -31,5 +32,7 @@ spring-doc:
 
 logging:
   level:
-    root: OFF
-
+    #root: OFF
+    org.springframework.security: DEBUG
+    org.flywaydb: DEBUG
+    org.hibernate.SQL: DEBUG

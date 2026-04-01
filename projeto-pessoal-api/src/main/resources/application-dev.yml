@@ -8,7 +8,8 @@ spring:
     password: ${DB_PASSWORD_DEV}
   jpa:
     hibernate:
-      ddl-auto: create-drop #Deleta e recria as tabelas e deleta os dados do banco quando finaliza a app
+      ddl-auto: none #Deleta e recria as tabelas e deleta os dados do banco quando finaliza a app
+      #ddl-auto: none
 #    properties:
 #      hibernate:
 #        format_sql: true # Deixa o SQL bonito e identado no console
