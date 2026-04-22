@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+//@SpringBootTest tentava subir o banco msm quando rodava este teste isolado q n precisa de migrations, por isso optei por não usar essa anotação e instanciar o ModelMapper manualmente
 public class ObjectMapperTests {
     MockPerson inputObject;
 
@@ -25,6 +25,7 @@ public class ObjectMapperTests {
     @BeforeEach
     public void setup() {
         inputObject = new MockPerson();
+        _mapper = new ModelMapper();
     }
 
     @Test
