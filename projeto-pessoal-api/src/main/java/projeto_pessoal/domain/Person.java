@@ -29,7 +29,9 @@ public class Person extends Audit implements Serializable {
 
     //@NotNull(message = "O gênero deve ser informado")
     @Column(nullable = true)
-    private Integer gender;
+    //@Enumerated(EnumType.ORDINAL)
+    //@Enumerated(EnumType.STRING)
+    private TipoGender gender;
 
     //@NotBlank(message = "O CPF é obrigatório")
     //@Pattern(regexp = "\\d{11}",
@@ -69,7 +71,7 @@ public class Person extends Audit implements Serializable {
         this.id = id;
         this.name = name;
         this.mathersName = mathersName;
-        this.gender = gender.getCode();
+        this.gender = gender;
         this.cpf = cpf;
         this.rg = rg;
         this.email = email;
@@ -100,12 +102,20 @@ public class Person extends Audit implements Serializable {
         this.mathersName = mathersName;
     }
 
+//    public TipoGender getGender() {
+//        return TipoGender.toEnum(gender);
+//    }
+//
+//    public void setGender(TipoGender gender) {
+//        this.gender = gender.getCode();
+//    }
+
     public TipoGender getGender() {
-        return TipoGender.toEnum(gender);
+        return gender;
     }
 
     public void setGender(TipoGender gender) {
-        this.gender = gender.getCode();
+        this.gender = gender;
     }
 
     public String getCpf() {
@@ -174,15 +184,15 @@ public class Person extends Audit implements Serializable {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getName(), person.getName()) && Objects.equals(getMathersName(), person.getMathersName()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getCpf(), person.getCpf()) && Objects.equals(getRg(), person.getRg()) && Objects.equals(getEmail(), person.getEmail()) && Objects.equals(getPhonesNumber(), person.getPhonesNumber()) && Objects.equals(getAddresses(), person.getAddresses()) && Objects.equals(getCourses(), person.getCourses()) && Objects.equals(getUser(), person.getUser());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getMathersName(), getGender(), getCpf(), getRg(), getEmail(), getPhonesNumber(), getAddresses(), getCourses(), getUser());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Person person = (Person) o;
+//        return Objects.equals(getId(), person.getId()) && Objects.equals(getName(), person.getName()) && Objects.equals(getMathersName(), person.getMathersName()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getCpf(), person.getCpf()) && Objects.equals(getRg(), person.getRg()) && Objects.equals(getEmail(), person.getEmail()) && Objects.equals(getPhonesNumber(), person.getPhonesNumber()) && Objects.equals(getAddresses(), person.getAddresses()) && Objects.equals(getCourses(), person.getCourses()) && Objects.equals(getUser(), person.getUser());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId(), getName(), getMathersName(), getGender(), getCpf(), getRg(), getEmail(), getPhonesNumber(), getAddresses(), getCourses(), getUser());
+//    }
 }

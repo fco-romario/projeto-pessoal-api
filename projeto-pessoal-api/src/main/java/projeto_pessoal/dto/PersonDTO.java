@@ -22,8 +22,7 @@ public class PersonDTO implements Serializable {
     private String mathersName;
 
     @NotNull(message = "O gênero deve ser informado")
-    // Se você seguiu minha dica do post anterior, aqui pode ser o Enum TipoGender
-    private Integer gender;
+    private TipoGender gender;
 
     @NotBlank(message = "O CPF é obrigatório")
     @Pattern(regexp = "\\d{11}",
@@ -58,7 +57,7 @@ public class PersonDTO implements Serializable {
         this.id = id;
         this.name = name;
         this.mathersName = mathersName;
-        this.gender = gender.getCode();
+        this.gender = gender;
         this.cpf = cpf;
         this.rg = rg;
         this.email = email;
@@ -89,12 +88,20 @@ public class PersonDTO implements Serializable {
         this.mathersName = mathersName;
     }
 
+//    public TipoGender getGender() {
+//        return TipoGender.toEnum(gender);
+//    }
+//
+//    public void setGender(TipoGender gender) {
+//        this.gender = gender.getCode();
+//    }
+
     public TipoGender getGender() {
-        return TipoGender.toEnum(gender);
+        return gender;
     }
 
     public void setGender(TipoGender gender) {
-        this.gender = gender.getCode();
+        this.gender = gender;
     }
 
     public String getCpf() {
@@ -179,15 +186,15 @@ public class PersonDTO implements Serializable {
 //        this.updatedAt = updatedAt;
 //    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonDTO personDTO = (PersonDTO) o;
-        return Objects.equals(getId(), personDTO.getId()) && Objects.equals(getName(), personDTO.getName()) && Objects.equals(getMathersName(), personDTO.getMathersName()) && getGender() == personDTO.getGender() && Objects.equals(getCpf(), personDTO.getCpf()) && Objects.equals(getRg(), personDTO.getRg()) && Objects.equals(getEmail(), personDTO.getEmail());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getMathersName(), getGender(), getCpf(), getRg(), getEmail());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (o == null || getClass() != o.getClass()) return false;
+//        PersonDTO personDTO = (PersonDTO) o;
+//        return Objects.equals(getId(), personDTO.getId()) && Objects.equals(getName(), personDTO.getName()) && Objects.equals(getMathersName(), personDTO.getMathersName()) && getGender() == personDTO.getGender() && Objects.equals(getCpf(), personDTO.getCpf()) && Objects.equals(getRg(), personDTO.getRg()) && Objects.equals(getEmail(), personDTO.getEmail());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId(), getName(), getMathersName(), getGender(), getCpf(), getRg(), getEmail());
+//    }
 }
